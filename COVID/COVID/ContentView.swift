@@ -9,8 +9,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    var tester = CovidData();
+    
+
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            Text("Hello, World!")
+        }
+        
     }
 }
 
