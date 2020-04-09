@@ -9,6 +9,10 @@
 import Foundation
 
 class CovidData {
+    
+    init() {
+        currData()
+    }
     var confirmedCount = "";
     var recoveredCount = "";
     var criticalCount = "";
@@ -64,13 +68,8 @@ class CovidData {
                 err = error
                 print(err!)
             }
-
         }
         task.resume()
     }
 
 }
-
-
-
-

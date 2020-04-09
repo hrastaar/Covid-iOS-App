@@ -7,16 +7,36 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
-    var tester = CovidData();
-    
 
+    let navOptions: [NavigationOption] = [
+            NavigationOption(optionName: "Send a Product Update", imageName: "product"),
+            NavigationOption(optionName: "Search for a Product", imageName: "search"),
+            NavigationOption(optionName: "Check for Covid Update", imageName: "data")
+        ]
+    
     var body: some View {
-        VStack {
-            Text("Hello, World!")
-        }
         
+        NavigationView {
+            List {
+                VStack {
+                    Section(header: Text("Options")) {
+                        NavigationLink(destination: CovidDataView()) {
+                            HStack {
+                                Image("data")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 40, height: 40)
+                                    
+                                Text("Live Covid Data")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -25,3 +45,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
