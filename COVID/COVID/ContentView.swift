@@ -17,26 +17,9 @@ struct ContentView: View {
             NavigationOption(optionName: "Check for Covid Update", imageName: "data")
         ]
     
+    
     var body: some View {
-        
-        NavigationView {
-            List {
-                VStack {
-                    Section(header: Text("Options")) {
-                        NavigationLink(destination: CovidDataView()) {
-                            HStack {
-                                Image("data")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 40, height: 40)
-                                    
-                                Text("Live Covid Data")
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        MapViewPage()
     }
 }
 

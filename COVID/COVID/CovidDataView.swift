@@ -35,5 +35,6 @@ struct CovidDataView: View {
 struct CovidDataView_Previews: PreviewProvider {
     static var previews: some View {
         CovidDataView()
+            .environment(\.colorScheme, .dark)
     }
 }
