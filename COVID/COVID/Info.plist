@@ -2,12 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to access your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow COVID App to track location?</string>
+	<string>$(PRODUCT_NAME) would like to track your location</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>customBold.ttf</string>
-		<string>customRegular.ttf</string>
+		<string>DIN-Regular.ttf</string>
+		<string>DIN-Bold.ttf</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
