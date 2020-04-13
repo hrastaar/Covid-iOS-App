@@ -10,13 +10,6 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
-
-    let navOptions: [NavigationOption] = [
-            NavigationOption(optionName: "Send a Product Update", imageName: "product"),
-            NavigationOption(optionName: "Search for a Product", imageName: "search"),
-            NavigationOption(optionName: "Check for Covid Update", imageName: "data")
-        ]
-    
     
     var body: some View {
         MapViewPage()

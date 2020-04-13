@@ -1,0 +1,24 @@
+PODS:
+  - Alamofire (5.1.0)
+  - HapticButton (0.1)
+  - SnapKit (5.0.1)
+
+DEPENDENCIES:
+  - Alamofire
+  - HapticButton
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - HapticButton
+    - SnapKit
+
+SPEC CHECKSUMS:
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
+  HapticButton: 7f244fb23421c2a7d2245457e745a809aab65c77
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+
+PODFILE CHECKSUM: 8b4473421498cc5fad2027a626a87b914420bfe7
+
+COCOAPODS: 1.8.4
