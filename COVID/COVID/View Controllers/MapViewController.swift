@@ -18,8 +18,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     var locationManager: CLLocationManager!
     var mapView: MKMapView?
-    var covidData: CovidData?
-
     
     @IBOutlet var showPopoverButton: UIButton!
     @IBOutlet var dismissPopoverButton: UIButton!
@@ -29,24 +27,23 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var criticalCaseLabel: UILabel!
     @IBOutlet var deathsLabel: UILabel!
     @IBOutlet var recoveredLabel: UILabel!
-    var popoverView: UIView!
+    var popoverView: CovidPopup!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         locationSetup()
         self.mapView = MKMapView(frame: UIScreen.main.bounds)
-        self.covidData = CovidData()
-
         mapSetup()
         view.addSubview(mapView!)
         view.sendSubviewToBack(mapView!)
         
         view.backgroundColor = UIColor.black
 
-        popoverView = UIView()
-        popoverView.layer.cornerRadius = 25
-        popoverView.isHidden = true
+        popoverView = CovidPopup()
+        view.addSubview(popoverView)
+        popoverView.hide()
+        popoverView.designPopup()
         showPopoverButton = UIButton(type: .custom)
         showPopoverButton.setButton()
         showPopoverButton.setTitle("Show Covid-19 Data", for: .normal)
@@ -59,8 +56,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         dismissPopoverButton.isHidden = true
     
         view.addSubview(showPopoverButton)
-        view.addSubview(self.popoverView)
-        view.addSubview(self.dismissPopoverButton)
+        view.addSubview(dismissPopoverButton)
         
         setButtonLayout()
         view.bringSubviewToFront(showPopoverButton)
@@ -116,78 +112,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     @objc func showPopup(_ sender: UIButton){
-        self.dismissPopoverButton.frame = CGRect(x: popoverView.center.x, y: popoverView.center.y+160, width: 300, height: 300)
         self.dismissPopoverButton.isHidden = false
         self.showPopoverButton.isHidden = true
-        popoverView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 0, height: 0)
-        popoverView.alpha = 0
-        UIView.animate(withDuration: 0.2) {
+
+        UIView.animate(withDuration: 0.2, animations: {
             self.popoverView.frame = CGRect(x: self.view.center.x, y: self.view.center.y, width: 300, height: 300)
             self.popoverView.center = self.view.center
             self.popoverView.alpha = 1
             self.popoverView.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.8)
-            
-        }
-        updateCovidLabels()
-
+        },
+            completion: {(value: Bool) in
+                self.popoverView.show()
+        })
     }
     
     @objc func hidePopup(){
         self.dismissPopoverButton.isHidden = true
         self.showPopoverButton.isHidden = false
-        UIView.animate(withDuration: 0.5, animations: {
-            self.popoverView.frame = CGRect(x:  self.view.center.x, y: self.view.center.y, width: 0, height: 0)
-            self.dismissPopoverButton.isHidden = true
-            
-        },
-            completion: {(value: Bool) in
-                        self.popoverView.removeFromSuperview()
-        })
-        popupHeadingLabel.removeFromSuperview()
-        confirmedCaseLabel.removeFromSuperview()
-        criticalCaseLabel.removeFromSuperview()
-        deathsLabel.removeFromSuperview()
-        recoveredLabel.removeFromSuperview()
-    }
-    
-    func updateCovidLabels() {
-        
-        self.popupHeadingLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.popoverView.center.y-120, width: 300, height: 50))
-        self.popupHeadingLabel.center.x = view.center.x
-        self.popupHeadingLabel.textAlignment = .center
-        self.popupHeadingLabel.font = UIFont(name: "D-DIN", size: 35)
-        
-        self.confirmedCaseLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.popoverView.center.y-60, width: 300, height: 50))
-        self.confirmedCaseLabel.center.x = view.center.x
-        self.confirmedCaseLabel.textAlignment = .center
-        self.confirmedCaseLabel.font = UIFont(name: "D-DIN", size: 20)
-        
-        self.criticalCaseLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.popoverView.center.y-6, width: 300, height: 50))
-        self.criticalCaseLabel.center.x = view.center.x
-        self.criticalCaseLabel.textAlignment = .center
-        self.criticalCaseLabel.font = UIFont(name: "D-DIN", size: 20)
-
-        self.deathsLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.popoverView.center.y+47, width: 300, height: 50))
-        self.deathsLabel.center.x = view.center.x
-        self.deathsLabel.textAlignment = .center
-        self.deathsLabel.font = UIFont(name: "D-DIN", size: 20)
-
-        self.recoveredLabel = UILabel(frame: CGRect(x: self.view.center.x, y: self.popoverView.center.y+100, width: 300, height: 50))
-        self.recoveredLabel.center.x = view.center.x
-        self.recoveredLabel.textAlignment = .center
-        self.recoveredLabel.font = UIFont(name: "D-DIN", size: 20)
-
-        view.addSubview(popupHeadingLabel)
-        view.addSubview(confirmedCaseLabel)
-        view.addSubview(criticalCaseLabel)
-        view.addSubview(deathsLabel)
-        view.addSubview(recoveredLabel)
-        
-        self.popupHeadingLabel.text = "Current Covid Data"
-        self.confirmedCaseLabel.text = covidData!.confirmedCount + " confirmed cases"
-        self.criticalCaseLabel.text = covidData!.criticalCount + " patients in critical condition"
-        self.deathsLabel.text = covidData!.deathCount + " people died."
-        self.recoveredLabel.text = covidData!.recoveredCount + " people recovered"
+        self.popoverView.hide()
     }
     
     func setButtonLayout() {
@@ -205,7 +147,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             make.right.equalTo(view).offset(-75)
         }
     }
-
+    
 }
 
 extension UIButton {
@@ -228,3 +170,4 @@ private extension MKMapView {
     setRegion(coordinateRegion, animated: true)
   }
 }
+
