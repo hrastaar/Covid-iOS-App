@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 5000
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
+  res.json({ error: err })
   .get('/db', async (req, res) => {
     try {
       const client = await pool.connect()
