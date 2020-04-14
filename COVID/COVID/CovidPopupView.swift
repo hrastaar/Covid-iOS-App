@@ -1,5 +1,5 @@
 //
-//  CovidPopup.swift
+//  CovidPopupView.swift
 //  COVID
 //
 //  Created by Rastaar Haghi on 4/13/20.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class CovidPopup: UIView {
+class CovidPopupView: UIView {
     
     @IBOutlet var popupHeadingLabel: UILabel!
     @IBOutlet var confirmedCaseLabel: UILabel!
@@ -37,7 +37,7 @@ class CovidPopup: UIView {
             // wait until a response is given TODO: Implement a better way of doing this
         }
         updateCovidLabels()
-        
+        self.layer.cornerRadius = 15
         self.addSubview(popupHeadingLabel)
         self.addSubview(confirmedCaseLabel)
         self.addSubview(criticalCaseLabel)

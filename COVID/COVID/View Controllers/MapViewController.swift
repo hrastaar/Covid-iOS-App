@@ -27,7 +27,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var criticalCaseLabel: UILabel!
     @IBOutlet var deathsLabel: UILabel!
     @IBOutlet var recoveredLabel: UILabel!
-    var popoverView: CovidPopup!
+    var popoverView: CovidPopupView!
 
     
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
         view.backgroundColor = UIColor.black
 
-        popoverView = CovidPopup()
+        popoverView = CovidPopupView()
         view.addSubview(popoverView)
         popoverView.hide()
         popoverView.designPopup()
