@@ -20,7 +20,7 @@ express()
       res.render('pages/db', results );
       client.release();
     } catch (err) {
-      console.error(err);
+      console.error( "HI " + err);
       res.send("Specific Error " + err);
     }
   })
