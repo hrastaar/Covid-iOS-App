@@ -14,13 +14,14 @@ import SwiftUI
 import HapticButton
 import SnapKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     var locationManager: CLLocationManager!
     var mapView: MKMapView?
     
     @IBOutlet var showPopoverButton: UIButton!
     @IBOutlet var dismissPopoverButton: UIButton!
+    @IBOutlet var trackingBtn: UIButton!
     
     @IBOutlet var popupHeadingLabel: UILabel!
     @IBOutlet var confirmedCaseLabel: UILabel!
@@ -28,22 +29,70 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var deathsLabel: UILabel!
     @IBOutlet var recoveredLabel: UILabel!
     var popoverView: CovidPopupView!
+    
+    var itemList = ["Face Masks", "Gloves", "Hand Sanitizer", "Soap", "Toilet Paper"]
+    var selectedItem: String?
+    @IBOutlet var textField: UITextField!
 
     
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return itemList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return itemList[row]
+       
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedItem = itemList[row]
+        textField.text = selectedItem
+    }
+    
+    func createPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        textField.inputView = pickerView
+    }
+    
+    func dismissPickerView() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func action() {
+       view.endEditing(true)
+        if(self.selectedItem != nil && self.selectedItem != "") {
+            print(self.selectedItem!)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        // set up ui-picker
+        textField = UITextField(frame: CGRect(x: self.view.center.x, y: view.bounds.maxY/4, width: 300, height: 75))
+        createPickerView()
+        dismissPickerView()
         locationSetup()
-        self.mapView = MKMapView(frame: UIScreen.main.bounds)
+        // set up map view
+        mapView = MKMapView(frame: UIScreen.main.bounds)
         mapSetup()
         view.addSubview(mapView!)
         view.sendSubviewToBack(mapView!)
         
-        view.backgroundColor = UIColor.black
-
         popoverView = CovidPopupView()
         view.addSubview(popoverView)
         popoverView.hide()
         popoverView.designPopup()
+        
         showPopoverButton = UIButton(type: .custom)
         showPopoverButton.setButton()
         showPopoverButton.setTitle("Show Covid-19 Data", for: .normal)
@@ -54,13 +103,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         dismissPopoverButton.setTitle("Exit", for: .normal)
         dismissPopoverButton.addTarget(self, action: #selector(hidePopup), for: .touchUpInside)
         dismissPopoverButton.isHidden = true
-    
+        
+        trackingBtn = UIButton(type: .custom)
+        trackingBtn.setImage(UIImage(systemName: "location"), for: .normal)
+        trackingBtn.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
+        view.addSubview(trackingBtn)
+        
+        
         view.addSubview(showPopoverButton)
         view.addSubview(dismissPopoverButton)
-        
-        setButtonLayout()
         view.bringSubviewToFront(showPopoverButton)
-
+        setupTextField()
+        setButtonLayout()
     }
     
     // configures map settings
@@ -135,24 +189,50 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     func setButtonLayout() {
         self.showPopoverButton.snp.makeConstraints{ (make) -> Void in
             make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(5/6))
-            make.left.equalTo(view).offset(75)
+            make.left.equalTo(view).offset(100)
             make.bottom.equalTo(view).offset(-20)
-            make.right.equalTo(view).offset(-75)
+            make.right.equalTo(view).offset(-100)
         }
         
         self.dismissPopoverButton.snp.makeConstraints{ (make) -> Void in
             make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(5/6))
-            make.left.equalTo(view).offset(75)
+            make.left.equalTo(view).offset(100)
             make.bottom.equalTo(view).offset(-20)
+            make.right.equalTo(view).offset(-100)
+        }
+        self.trackingBtn.snp.makeConstraints{ (make) -> Void in
+            make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(5/6))
+            make.left.equalTo(view).offset(UIScreen.main.bounds.maxX - 75)
+            make.bottom.equalTo(view).offset(-20)
+            make.right.equalTo(view).offset(-25)
+        }
+    }
+    
+    func setupTextField() {
+        // add to the main UIView
+        view.addSubview(textField)
+        view.bringSubviewToFront(textField)
+        textField.textAlignment = .center
+        textField.font = UIFont(name: "DIN", size: 60)
+        // make some constraints
+        self.textField.snp.makeConstraints{ (make) -> Void in
+            make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(1/6))
+            make.left.equalTo(view).offset(75)
+            make.bottom.equalTo(view).offset(-UIScreen.main.bounds.maxY*(2/3))
             make.right.equalTo(view).offset(-75)
         }
+        self.textField.layer.cornerRadius = 20.0
+        self.textField.text = "Find an Essential Item"
+        self.textField.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.9)
+        self.textField.textColor = .white
+        
     }
     
 }
 
 extension UIButton {
     func setButton() {
-        self.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.7)
+        self.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.85)
         self.layer.cornerRadius = 15
         self.setTitleColor(.white, for: .normal)
     }
