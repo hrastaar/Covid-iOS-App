@@ -51,34 +51,34 @@ class CovidPopupView: UIView {
         
         self.popupHeadingLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 25, width: superview!.bounds.width, height: 75))
         self.popupHeadingLabel.textAlignment = .center
-        self.popupHeadingLabel.font = UIFont(name: "D-DIN", size: 35)
+        self.popupHeadingLabel.font = UIFont(name: "DIN", size: 35)
         self.popupHeadingLabel.center.x = superview!.center.x
 
         self.confirmedCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 100, width: superview!.bounds.width, height: 50))
         self.confirmedCaseLabel.textAlignment = .center
         self.confirmedCaseLabel.numberOfLines = 0
-        self.confirmedCaseLabel.font = UIFont(name: "D-DIN", size: 20)
+        self.confirmedCaseLabel.font = UIFont(name: "DIN", size: 20)
         self.confirmedCaseLabel.center.x = superview!.center.x
 
         
         self.criticalCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 150, width: superview!.bounds.width, height: 50))
         self.criticalCaseLabel.textAlignment = .center
         self.criticalCaseLabel.numberOfLines = 0
-        self.criticalCaseLabel.font = UIFont(name: "D-DIN", size: 20)
+        self.criticalCaseLabel.font = UIFont(name: "DIN", size: 20)
         self.criticalCaseLabel.center.x = superview!.center.x
 
         
         self.deathsLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 200, width: superview!.bounds.width, height: 50))
         self.deathsLabel.textAlignment = .center
         self.deathsLabel.numberOfLines = 0
-        self.deathsLabel.font = UIFont(name: "D-DIN", size: 20)
+        self.deathsLabel.font = UIFont(name: "DIN", size: 20)
         self.deathsLabel.center.x = superview!.center.x
 
         
         self.recoveredLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 250, width: superview!.bounds.width, height: 50))
         self.recoveredLabel.textAlignment = .center
         self.recoveredLabel.numberOfLines = 0
-        self.recoveredLabel.font = UIFont(name: "D-DIN", size: 20)
+        self.recoveredLabel.font = UIFont(name: "DIN", size: 20)
         self.recoveredLabel.center.x = superview!.center.x
 
         
