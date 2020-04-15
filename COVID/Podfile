@@ -8,5 +8,6 @@ target 'COVID' do
   # Pods for COVID
   pod 'Alamofire'
   pod 'HapticButton'
-  pod 'SnapKit'	
+  pod 'SnapKit'
+  pod 'Firebase/Analytics'
 end
