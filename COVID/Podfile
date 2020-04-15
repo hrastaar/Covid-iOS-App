@@ -6,8 +6,8 @@ target 'COVID' do
   use_frameworks!
 
   # Pods for COVID
+  pod 'Firebase/Analytics'
   pod 'Alamofire'
   pod 'HapticButton'
   pod 'SnapKit'
-  pod 'Firebase/Analytics'
 end
