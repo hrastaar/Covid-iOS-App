@@ -12,6 +12,7 @@ import UIKit
 import CoreLocation
 import SwiftUI
 import SnapKit
+import Firebase
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
@@ -104,12 +105,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
         }
     }
     
+    @objc func showPoints(item: String) {
+        clearPointsOnMap()
+        Firestore.firestore().collection("items").getDocuments { (snapshot, error) in
+            if error == nil && snapshot != nil {
+                for document in snapshot!.documents {
+                    let documentData = document.data()
+                    self.addPointToMap(latitude: documentData["xCoord"] as! Double, longitude: documentData["yCoord"] as! Double, storeName: documentData["storeName"] as! String, productName: documentData["product"] as! String, quantity: documentData["quantity"] as! String)
+                }
+            }
+        }
+    }
+    
     // add points to the map from our API
-    func addPointToMap(latitude: Double, longitude: Double, storeName: String, productName: String) {
+    func addPointToMap(latitude: Double, longitude: Double, storeName: String, productName: String, quantity: String) {
         let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11)
+            annotation.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             annotation.title = storeName
-            annotation.subtitle = productName
+            annotation.subtitle = productName + ", Quantity: \(quantity)"
 
         self.mapView?.addAnnotation(annotation)
         print("Point added at latitude: \(latitude), longitude: \(longitude)")
@@ -256,6 +269,7 @@ extension MapViewController {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedItem = itemList[row]
         textField.text = selectedItem
+        showPoints(item: selectedItem!)
     }
     
     func createPickerView() {

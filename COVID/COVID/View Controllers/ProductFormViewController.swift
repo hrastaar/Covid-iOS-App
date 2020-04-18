@@ -121,9 +121,9 @@ class ProductFormViewController: UIViewController, UINavigationControllerDelegat
         if(itemField.hasText && storeTextField.hasText && quantityTextField.hasText) {
             let model = FormResponse(product: selectedItem ?? "", storeName: storeTextField.text ?? "", quantity: quantityTextField.text ?? "", xCoord: (locationManager.location?.coordinate.latitude)!, yCoord: (locationManager.location?.coordinate.longitude)!)
             print(model)
-            
-            Firestore.firestore().collection("items").document("Kb23LvakxvDEOkl4Vwgl").setData(model.dictionary)
-            
+            //let db = Firestore.firestore()
+            //db.collection("items").addDocument(data: model.dictionary)
+            Firestore.firestore().collection("items").addDocument(data: model.dictionary)
         } else {
             print("Couldn't submit form because one of the required fields was left blank")
         }
@@ -136,7 +136,7 @@ class ProductFormViewController: UIViewController, UINavigationControllerDelegat
         self.uploadImageButton.frame = CGRect(x: UIScreen.main.bounds.midX - 100, y: view.bounds.height - 200, width: 200, height: 50)
         self.uploadImageButton.titleLabel!.font = UIFont.regularFont(size: 24)
         self.uploadImageButton.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.9)
-        self.uploadImageButton.addTarget(self, action: #selector(takePicture), for: .touchUpInside)
+        self.uploadImageButton.addTarget(self, action: #selector(submitForm), for: .touchUpInside)
         view.addSubview(uploadImageButton)
         print("Upload button created")
     }
