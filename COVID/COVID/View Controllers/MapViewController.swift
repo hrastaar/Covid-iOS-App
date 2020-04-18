@@ -11,7 +11,6 @@ import MapKit
 import UIKit
 import CoreLocation
 import SwiftUI
-import HapticButton
 import SnapKit
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
@@ -19,10 +18,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
     var locationManager: CLLocationManager!
     var mapView: MKMapView?
     
+    var mainLabel: UILabel!
     @IBOutlet var showPopoverButton: UIButton!
     @IBOutlet var dismissPopoverButton: UIButton!
     @IBOutlet var trackingBtn: UIButton!
-    
+    @IBOutlet var addBtn: UIButton!
     @IBOutlet var popupHeadingLabel: UILabel!
     @IBOutlet var confirmedCaseLabel: UILabel!
     @IBOutlet var criticalCaseLabel: UILabel!
@@ -33,52 +33,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
     var itemList = ["Face Masks", "Gloves", "Hand Sanitizer", "Soap", "Toilet Paper"]
     var selectedItem: String?
     @IBOutlet var textField: UITextField!
-
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return itemList.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return itemList[row]
-       
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedItem = itemList[row]
-        textField.text = selectedItem
-    }
-    
-    func createPickerView() {
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
-        textField.inputView = pickerView
-    }
-    
-    func dismissPickerView() {
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        
-        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
-        toolBar.setItems([button], animated: true)
-        toolBar.isUserInteractionEnabled = true
-        textField.inputAccessoryView = toolBar
-    }
-    
-    @objc func action() {
-       view.endEditing(true)
-        if(self.selectedItem != nil && self.selectedItem != "") {
-            print(self.selectedItem!)
-        }
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
+        mainLabel = UILabel(frame: CGRect(x: 0, y: 15, width: UIScreen.main.bounds.width, height: 75))
+        mainLabel.text = "Essential Item Tracker"
+        mainLabel.textAlignment = .center
+        mainLabel.font = UIFont.regularFont(size: 40)
+        mainLabel.numberOfLines = 0
+        view.addSubview(mainLabel)
         // set up ui-picker
-        textField = UITextField(frame: CGRect(x: self.view.center.x, y: view.bounds.maxY/4, width: 300, height: 75))
+        textField = UITextField(frame: CGRect(x: self.view.center.x, y: view.bounds.maxY/4, width: 300, height: 50))
         createPickerView()
         dismissPickerView()
         locationSetup()
@@ -109,6 +75,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
         trackingBtn.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
         view.addSubview(trackingBtn)
         
+        addBtn = UIButton(type: .custom)
+        addBtn.setButton()
+        addBtn.setTitle("Add", for: .normal)
+        addBtn.addTarget(self, action: #selector(showForm), for: .touchUpInside)
+        view.addSubview(addBtn)
         
         view.addSubview(showPopoverButton)
         view.addSubview(dismissPopoverButton)
@@ -124,8 +95,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
         self.mapView?.showsBuildings = true
         self.mapView?.showsCompass = true
         centerMap()
-        self.mapView?.camera = MKMapCamera(lookingAtCenter: locationManager.location?.coordinate ?? CLLocationCoordinate2DMake(-118.2673, 34.0430), fromEyeCoordinate: locationManager.location?.coordinate ?? CLLocationCoordinate2DMake(-118.2673, 34.0430), eyeAltitude: 5000)
-        print("Map Configured!")
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
+        CLLocationManager.authorizationStatus() == .authorizedAlways) {
+            self.mapView?.camera = MKMapCamera(lookingAtCenter: self.locationManager.location!.coordinate, fromEyeCoordinate: self.locationManager.location!.coordinate, eyeAltitude: 5000)
+            print("Map Configured!")
+        } else {
+            print("Couldn't complete map configuration because system hasn't shared location with app. Please go to system settings.")
+        }
     }
     
     // add points to the map from our API
@@ -155,14 +131,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
         print("Location Setup Complete!")
     }
     
+    @objc func showForm() {
+        self.showDetailViewController(ProductFormViewController.init(), sender: self)
+    }
+    
     // update the view to the center
     @objc func centerMap() {
-         // set the location user is at, otherwise just use Staples Center
-           var loc: CLLocationCoordinate2D
-           loc = locationManager.location?.coordinate ?? CLLocationCoordinate2DMake(-118.2673, 34.0430)
+        if(CLLocationManager.authorizationStatus() == .authorizedWhenInUse || CLLocationManager.authorizationStatus() == .authorizedAlways) {
            // update the map
-           mapView?.setCenter(loc, animated: true)
+            mapView?.setCenter(locationManager.location!.coordinate, animated: true)
            print("Map has been centered to user location")
+        } else {
+            print("Couldn't recenter because user didn't grant this app location access. Please go to system settings.")
+        }
     }
 
     @objc func showPopup(_ sender: UIButton){
@@ -206,6 +187,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
             make.bottom.equalTo(view).offset(-20)
             make.right.equalTo(view).offset(-25)
         }
+        self.addBtn.snp.makeConstraints{ (make) -> Void in
+            make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(1/6)-25)
+            make.left.equalTo(view).offset(10)
+            make.right.equalTo(view).offset(-10+(-2*UIScreen.main.bounds.maxX)/3)
+            make.bottom.equalTo(view).offset(-UIScreen.main.bounds.maxY*(2/3)-25)
+        }
     }
     
     func setupTextField() {
@@ -213,13 +200,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
         view.addSubview(textField)
         view.bringSubviewToFront(textField)
         textField.textAlignment = .center
-        textField.font = UIFont(name: "DIN", size: 60)
+        textField.font = UIFont.regularFont(size: 20)
         // make some constraints
         self.textField.snp.makeConstraints{ (make) -> Void in
-            make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(1/6))
-            make.left.equalTo(view).offset(75)
-            make.bottom.equalTo(view).offset(-UIScreen.main.bounds.maxY*(2/3))
-            make.right.equalTo(view).offset(-75)
+            make.top.equalTo(view).offset(UIScreen.main.bounds.maxY*(1/6)-25)
+            make.left.equalTo(view).offset(UIScreen.main.bounds.maxX/3)
+            make.bottom.equalTo(view).offset(-UIScreen.main.bounds.maxY*(2/3)-25)
+            make.right.equalTo(view).offset(-10)
         }
         self.textField.layer.cornerRadius = 20.0
         self.textField.text = "Find an Essential Item"
@@ -233,6 +220,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, UIPickerVi
 extension UIButton {
     func setButton() {
         self.backgroundColor = UIColor(red: 0.130, green: 0.130, blue: 0.130, alpha: 0.85)
+        self.titleLabel!.font = UIFont.regularFont(size: 18)
         self.layer.cornerRadius = 15
         self.setTitleColor(.white, for: .normal)
     }
@@ -251,3 +239,45 @@ private extension MKMapView {
   }
 }
 
+extension MapViewController {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return itemList.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return itemList[row]
+       
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedItem = itemList[row]
+        textField.text = selectedItem
+    }
+    
+    func createPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        textField.inputView = pickerView
+    }
+    
+    func dismissPickerView() {
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(self.action))
+        toolBar.setItems([button], animated: true)
+        toolBar.isUserInteractionEnabled = true
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func action() {
+       view.endEditing(true)
+        if(self.selectedItem != nil && self.selectedItem != "") {
+            print(self.selectedItem!)
+        }
+    }
+}

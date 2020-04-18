@@ -17,6 +17,8 @@ class CovidPopupView: UIView {
     @IBOutlet var criticalCaseLabel: UILabel!
     @IBOutlet var deathsLabel: UILabel!
     @IBOutlet var recoveredLabel: UILabel!
+    
+    @IBOutlet var providedLabel: UILabel!
     var covidData: CovidData?
     
     func designPopup() {
@@ -33,6 +35,7 @@ class CovidPopupView: UIView {
         self.criticalCaseLabel = UILabel()
         self.deathsLabel = UILabel()
         self.recoveredLabel = UILabel()
+        self.providedLabel = UILabel()
         while(self.covidData?.confirmedCount == "") {
             // wait until a response is given TODO: Implement a better way of doing this
         }
@@ -43,44 +46,50 @@ class CovidPopupView: UIView {
         self.addSubview(criticalCaseLabel)
         self.addSubview(deathsLabel)
         self.addSubview(recoveredLabel)
+        self.addSubview(providedLabel)
     }
     
     func updateCovidLabels() {
         
         print("Entered updateCovidLabels")
         
-        self.popupHeadingLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 25, width: superview!.bounds.width, height: 75))
+        self.popupHeadingLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 10, width: superview!.bounds.width - 60, height: 75))
         self.popupHeadingLabel.textAlignment = .center
-        self.popupHeadingLabel.font = UIFont(name: "DIN", size: 35)
-        self.popupHeadingLabel.center.x = superview!.center.x
+        self.popupHeadingLabel.font = UIFont.regularFont(size: 32)
+        self.popupHeadingLabel.textColor = .white
 
-        self.confirmedCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 100, width: superview!.bounds.width, height: 50))
+        self.confirmedCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 85, width: superview!.bounds.width - 60, height: 50))
         self.confirmedCaseLabel.textAlignment = .center
         self.confirmedCaseLabel.numberOfLines = 0
-        self.confirmedCaseLabel.font = UIFont(name: "DIN", size: 20)
-        self.confirmedCaseLabel.center.x = superview!.center.x
+        self.confirmedCaseLabel.font = UIFont.regularFont(size: 18)
+        self.confirmedCaseLabel.textColor = .white
 
         
-        self.criticalCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 150, width: superview!.bounds.width, height: 50))
+        self.criticalCaseLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 135, width: superview!.bounds.width - 60, height: 50))
         self.criticalCaseLabel.textAlignment = .center
         self.criticalCaseLabel.numberOfLines = 0
-        self.criticalCaseLabel.font = UIFont(name: "DIN", size: 20)
-        self.criticalCaseLabel.center.x = superview!.center.x
+        self.criticalCaseLabel.font = UIFont.regularFont(size: 18)
+        self.criticalCaseLabel.textColor = .white
 
         
-        self.deathsLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 200, width: superview!.bounds.width, height: 50))
+        self.deathsLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 185, width: superview!.bounds.width - 60, height: 50))
         self.deathsLabel.textAlignment = .center
         self.deathsLabel.numberOfLines = 0
-        self.deathsLabel.font = UIFont(name: "DIN", size: 20)
-        self.deathsLabel.center.x = superview!.center.x
+        self.deathsLabel.font = UIFont.regularFont(size: 18)
+        self.deathsLabel.textColor = .white
 
         
-        self.recoveredLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 250, width: superview!.bounds.width, height: 50))
+        self.recoveredLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 235, width: superview!.bounds.width - 60, height: 50))
         self.recoveredLabel.textAlignment = .center
         self.recoveredLabel.numberOfLines = 0
-        self.recoveredLabel.font = UIFont(name: "DIN", size: 20)
-        self.recoveredLabel.center.x = superview!.center.x
+        self.recoveredLabel.font = UIFont.regularFont(size: 18)
+        self.recoveredLabel.textColor = .white
 
+        self.providedLabel = UILabel(frame: CGRect(x: superview!.bounds.minX, y: 300, width: superview!.bounds.width - 60, height: 50))
+        self.providedLabel.textAlignment = .center
+        self.providedLabel.numberOfLines = 0
+        self.providedLabel.font = UIFont.regularFont(size: 12)
+        self.providedLabel.textColor = .gray
         
         print("Created label details")
         
@@ -89,7 +98,7 @@ class CovidPopupView: UIView {
         self.criticalCaseLabel.text = self.covidData!.criticalCount + " patients in critical condition"
         self.deathsLabel.text = self.covidData!.deathCount + " people died."
         self.recoveredLabel.text = self.covidData!.recoveredCount + " people recovered"
-        
+        self.providedLabel.text = "Data Provided by Johns Hopkins University"
         print("Updated label text")
     }
     

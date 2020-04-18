@@ -26,8 +26,7 @@
 	<string>$(PRODUCT_NAME) would like to track your location</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Robinhood-Regular.ttf</string>
-		<string>Robinhood-Bold.ttf</string>
+		<string>DIN-Regular.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
