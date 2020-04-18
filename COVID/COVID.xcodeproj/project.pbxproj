@@ -10,10 +10,10 @@
 		740C0A32243EE4F700FB7583 /* NavigationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C0A31243EE4F700FB7583 /* NavigationOption.swift */; };
 		740C0A3E243F10E200FB7583 /* CovidDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C0A3D243F10E200FB7583 /* CovidDataView.swift */; };
 		740C0A40243F112600FB7583 /* ProductUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740C0A3F243F112600FB7583 /* ProductUpdateView.swift */; };
+		742642BC24485D8500D76CCE /* DIN-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 742642BB24485D8500D76CCE /* DIN-Regular.ttf */; };
+		742642C02449D02200D76CCE /* FormResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742642BF2449D02200D76CCE /* FormResponse.swift */; };
 		745069FE244011EA00908FC5 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745069FD244011EA00908FC5 /* MapViewController.swift */; };
 		74506A00244024EC00908FC5 /* MapViewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745069FF244024EC00908FC5 /* MapViewPage.swift */; };
-		74506A1B244078A300908FC5 /* DIN-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74506A1D244078A300908FC5 /* DIN-Regular.ttf */; };
-		74506A1E244078A800908FC5 /* DIN-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74506A20244078A800908FC5 /* DIN-Bold.ttf */; };
 		74506A22244081CC00908FC5 /* ProductFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74506A21244081CC00908FC5 /* ProductFormViewController.swift */; };
 		74506A24244131CE00908FC5 /* ProductUpdatePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74506A23244131CE00908FC5 /* ProductUpdatePage.swift */; };
 		749B19FE243DB2C80059F942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749B19FD243DB2C80059F942 /* AppDelegate.swift */; };
@@ -24,6 +24,8 @@
 		749B1A0A243DB2CA0059F942 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 749B1A09243DB2CA0059F942 /* Preview Assets.xcassets */; };
 		749B1A0D243DB2CA0059F942 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 749B1A0B243DB2CA0059F942 /* LaunchScreen.storyboard */; };
 		749B1A15243DB4F70059F942 /* CovidData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 749B1A14243DB4F70059F942 /* CovidData.swift */; };
+		74C189FA2446F18400593A29 /* CovidPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C189F92446F18400593A29 /* CovidPopupView.swift */; };
+		74C189FC2446F21900593A29 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 74C189FB2446F21900593A29 /* GoogleService-Info.plist */; };
 		F85CFF80C606E69377423F01 /* Pods_COVID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D1BB093506E6185904C7B16 /* Pods_COVID.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,10 +33,10 @@
 		740C0A31243EE4F700FB7583 /* NavigationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationOption.swift; sourceTree = "<group>"; };
 		740C0A3D243F10E200FB7583 /* CovidDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidDataView.swift; sourceTree = "<group>"; };
 		740C0A3F243F112600FB7583 /* ProductUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductUpdateView.swift; sourceTree = "<group>"; };
+		742642BB24485D8500D76CCE /* DIN-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DIN-Regular.ttf"; sourceTree = "<group>"; };
+		742642BF2449D02200D76CCE /* FormResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormResponse.swift; sourceTree = "<group>"; };
 		745069FD244011EA00908FC5 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		745069FF244024EC00908FC5 /* MapViewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewPage.swift; sourceTree = "<group>"; };
-		74506A1C244078A300908FC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/DIN-Regular.ttf"; sourceTree = "<group>"; };
-		74506A1F244078A800908FC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file; name = Base; path = "Base.lproj/DIN-Bold.ttf"; sourceTree = "<group>"; };
 		74506A21244081CC00908FC5 /* ProductFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFormViewController.swift; sourceTree = "<group>"; };
 		74506A23244131CE00908FC5 /* ProductUpdatePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductUpdatePage.swift; sourceTree = "<group>"; };
 		749B19FA243DB2C80059F942 /* COVID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = COVID.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +49,8 @@
 		749B1A0C243DB2CA0059F942 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		749B1A0E243DB2CA0059F942 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		749B1A14243DB4F70059F942 /* CovidData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CovidData.swift; sourceTree = "<group>"; };
+		74C189F92446F18400593A29 /* CovidPopupView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CovidPopupView.swift; path = COVID/CovidPopupView.swift; sourceTree = SOURCE_ROOT; };
+		74C189FB2446F21900593A29 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		768D6551E3A0B835AB87972A /* Pods-COVID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVID.release.xcconfig"; path = "Target Support Files/Pods-COVID/Pods-COVID.release.xcconfig"; sourceTree = "<group>"; };
 		9D1BB093506E6185904C7B16 /* Pods_COVID.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_COVID.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3FD77F908FBDEE6E07DCFA8 /* Pods-COVID.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-COVID.debug.xcconfig"; path = "Target Support Files/Pods-COVID/Pods-COVID.debug.xcconfig"; sourceTree = "<group>"; };
@@ -81,6 +85,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		742642BA24485C8D00D76CCE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				742642BB24485D8500D76CCE /* DIN-Regular.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7486848A2443259D00F37D01 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -93,15 +105,6 @@
 				745069FD244011EA00908FC5 /* MapViewController.swift */,
 			);
 			path = "View Controllers";
-			sourceTree = "<group>";
-		};
-		7486848B244325BA00F37D01 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				74506A20244078A800908FC5 /* DIN-Bold.ttf */,
-				74506A1D244078A300908FC5 /* DIN-Regular.ttf */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		749B19F1243DB2C80059F942 = {
@@ -125,9 +128,11 @@
 		749B19FC243DB2C80059F942 /* COVID */ = {
 			isa = PBXGroup;
 			children = (
-				7486848B244325BA00F37D01 /* Resources */,
+				742642BA24485C8D00D76CCE /* Resources */,
+				74C189FB2446F21900593A29 /* GoogleService-Info.plist */,
 				7486848A2443259D00F37D01 /* View Controllers */,
 				749B19FD243DB2C80059F942 /* AppDelegate.swift */,
+				74C189F92446F18400593A29 /* CovidPopupView.swift */,
 				749B19FF243DB2C80059F942 /* SceneDelegate.swift */,
 				749B1A06243DB2CA0059F942 /* Assets.xcassets */,
 				749B1A0B243DB2CA0059F942 /* LaunchScreen.storyboard */,
@@ -136,6 +141,7 @@
 				749B1A08243DB2CA0059F942 /* Preview Content */,
 				749B1A14243DB4F70059F942 /* CovidData.swift */,
 				740C0A31243EE4F700FB7583 /* NavigationOption.swift */,
+				742642BF2449D02200D76CCE /* FormResponse.swift */,
 			);
 			path = COVID;
 			sourceTree = "<group>";
@@ -209,8 +215,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				749B1A0D243DB2CA0059F942 /* LaunchScreen.storyboard in Resources */,
-				74506A1E244078A800908FC5 /* DIN-Bold.ttf in Resources */,
-				74506A1B244078A300908FC5 /* DIN-Regular.ttf in Resources */,
+				742642BC24485D8500D76CCE /* DIN-Regular.ttf in Resources */,
+				74C189FC2446F21900593A29 /* GoogleService-Info.plist in Resources */,
 				749B1A0A243DB2CA0059F942 /* Preview Assets.xcassets in Resources */,
 				749B1A07243DB2CA0059F942 /* Assets.xcassets in Resources */,
 			);
@@ -268,8 +274,10 @@
 				74506A00244024EC00908FC5 /* MapViewPage.swift in Sources */,
 				740C0A32243EE4F700FB7583 /* NavigationOption.swift in Sources */,
 				740C0A40243F112600FB7583 /* ProductUpdateView.swift in Sources */,
+				74C189FA2446F18400593A29 /* CovidPopupView.swift in Sources */,
 				740C0A3E243F10E200FB7583 /* CovidDataView.swift in Sources */,
 				74506A22244081CC00908FC5 /* ProductFormViewController.swift in Sources */,
+				742642C02449D02200D76CCE /* FormResponse.swift in Sources */,
 				749B19FE243DB2C80059F942 /* AppDelegate.swift in Sources */,
 				745069FE244011EA00908FC5 /* MapViewController.swift in Sources */,
 				749B1A15243DB4F70059F942 /* CovidData.swift in Sources */,
@@ -283,22 +291,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		74506A1D244078A300908FC5 /* DIN-Regular.ttf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				74506A1C244078A300908FC5 /* Base */,
-			);
-			name = "DIN-Regular.ttf";
-			sourceTree = "<group>";
-		};
-		74506A20244078A800908FC5 /* DIN-Bold.ttf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				74506A1F244078A800908FC5 /* Base */,
-			);
-			name = "DIN-Bold.ttf";
-			sourceTree = "<group>";
-		};
 		749B1A0B243DB2CA0059F942 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
